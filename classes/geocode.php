@@ -42,7 +42,7 @@ class Geocode
 	public static function reverse($lat, $long)
 	{
 		return new static('reverse', array(
-			'latlng' => $lat.','.$lng,
+			'latlng' => $lat.','.$long,
 		));
 	}
 
