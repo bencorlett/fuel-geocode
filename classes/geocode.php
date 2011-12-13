@@ -9,7 +9,7 @@ class Geocode
 	 * 
 	 * @var string
 	 */
-	protected $service_url = 'http://amaps.googleapis.com/maps/api/geocode/json';
+	protected $service_url = 'http://maps.googleapis.com/maps/api/geocode/json';
 
 	/**
 	 * The type of geocoding we are doing,
@@ -48,6 +48,7 @@ class Geocode
 
 	public function execute()
 	{
+		// Build the url
 		$url = $this->build_url();
 
 		try
@@ -65,7 +66,7 @@ class Geocode
 		{
 			if ($request->response_info('http_code', false) == '404')
 			{
-				throw new \Exception('The geocode resource could not be found (404)');
+				throw new \Exception('The geocode resource could not be found (404) ['.$url.']');
 			}
 
 			throw new \Exception('Curl request exception: '.
@@ -75,9 +76,6 @@ class Geocode
 
 	public function build_url()
 	{
-
-		$url = $this->service_url.'?'.http_build_query($this->params, null, '&');
-
-		return $url;
+		return $this->service_url.'?'.http_build_query($this->params, null, '&');
 	}
 }
