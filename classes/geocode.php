@@ -25,25 +25,66 @@ class Geocode
 	 */
 	public $params = array();
 
-	protected function __construct($type, $params = array())
+	/**
+	 * Construct
+	 * 
+	 * Called when the class
+	 * is initalised
+	 * 
+	 * @access  protected
+	 * @param   string   $type     address|reverse  Type of geocode
+	 * @param   array    $params   Parameters to override in this instance
+	 */
+	protected function __construct($type, array $params = array())
 	{
 		\Config::load('geocode', true);
 
 		$this->params = \Arr::merge($this->params, \Config::get('geocode.default_params', array()), $params);
 	}
 
-	public static function address($address)
+	/**
+	 * Address
+	 * 
+	 * Geocodes an address given.
+	 * The address should be given with
+	 * as many details as possible in a standard
+	 * address format, however Google is pretty
+	 * lenient
+	 * 
+	 * @access  public
+	 * @param   string  $address  The address
+	 * @param   array   $params   Parameters to override in this instance
+	 * @param   bool    $execute  Excecute right away
+	 * @return  mixed
+	 */
+	public static function address($address, array $params = array(), $execute = true)
 	{
-		return new static('address', array(
+		$static = new static('address', \Arr::merge(array(
 			'address' => $address,
-		));
+		), $params));
+
+		return $execute === true ? $static->execute() : $static;
 	}
 
-	public static function reverse($lat, $long)
+	/**
+	 * Reverse
+	 * 
+	 * Reverse geocodes a location given.
+	 * 
+	 * @access  public
+	 * @param   decimal $lat      The latitude
+	 * @param   decimal $long     The longitude
+	 * @param   array   $params   Parameters to override in this instance
+	 * @param   bool    $execute  Excecute right away
+	 * @return  mixed
+	 */
+	public static function reverse($lat, $long, array $params = array(), $execute = true)
 	{
-		return new static('reverse', array(
+		$static = new static('reverse', \Arr::merge(array(
 			'latlng' => $lat.','.$long,
-		));
+		), $params));
+
+		return $execute === true ? $static->execute() : $static;
 	}
 
 	/**
