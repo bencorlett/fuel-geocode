@@ -69,7 +69,15 @@ class Geocode_Response implements \ArrayAccess, \Iterator, \Countable
 	 */
 	protected $counter = 0;
 
-	public function __construct($body, $type)
+	/**
+	 * Construct
+	 * 
+	 * Called when the class is initalised
+	 * 
+	 * @access  public
+	 * @param   string  $body   Raw response body
+	 */
+	public function __construct($body)
 	{
 		$body = \Format::forge($body, 'json')
 					   ->to_array();
@@ -104,11 +112,21 @@ class Geocode_Response implements \ArrayAccess, \Iterator, \Countable
 	 * ============================================
 	 */
 	
+	/**
+	 * ArrayAccess::offsetExists
+	 * 
+	 * @see http://php.net/manual/en/arrayaccess.offsetexists.php
+	 */
 	public function offsetExists($offset)
 	{
 		return isset($this->results[$offset]);
 	}
 
+	/**
+	 * ArrayAccess::offsetGet
+	 * 
+	 * @see http://php.net/manual/en/arrayaccess.offsetget.php
+	 */
 	public function offsetGet($offset)
 	{
 		if ( ! $this->offsetExists($offset))
@@ -119,11 +137,21 @@ class Geocode_Response implements \ArrayAccess, \Iterator, \Countable
 		return $this->results[$offset];
 	}
 
+	/**
+	 * ArrayAccess::offsetSet
+	 * 
+	 * @see http://php.net/manual/en/arrayaccess.offsetset.php
+	 */
 	public function offsetSet($offset, $result)
 	{
 		$this->results[$offset] = $result;
 	}
 
+	/**
+	 * ArrayAccess::offsetUnset
+	 * 
+	 * @see http://php.net/manual/en/arrayaccess.offsetunset.php
+	 */
 	public function offsetUnset($offset)
 	{
 		unset($this->results[$offset]);
@@ -134,27 +162,53 @@ class Geocode_Response implements \ArrayAccess, \Iterator, \Countable
 	 * ========= Iterable Implementation ==========
 	 * ============================================
 	 */
+	
+	/**
+	 * Iterator::current
+	 * 
+	 * @see http://php.net/manual/en/class.iterator.php
+	 */
 	public function current()
 	{
 		return $this->results[$this->counter];
 	}
 
+	/**
+	 * Iterator::next
+	 * 
+	 * @see http://php.net/manual/en/class.iterator.php
+	 */
 	public function next()
 	{
 		++$this->counter;
 		return $this;
 	}
 
+	/**
+	 * Iterator::key
+	 * 
+	 * @see http://php.net/manual/en/class.iterator.php
+	 */
 	public function key()
 	{
 		return $this->counter;
 	}
 
+	/**
+	 * Iterator::valid
+	 * 
+	 * @see http://php.net/manual/en/class.iterator.php
+	 */
 	public function valid()
 	{
 		return $this->offsetExists($this->counter);
 	}
 
+	/**
+	 * Iterator::rewind
+	 * 
+	 * @see http://php.net/manual/en/class.iterator.php
+	 */
 	public function rewind()
 	{
 		$this->counter = 0;

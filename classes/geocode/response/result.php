@@ -115,15 +115,9 @@ class Geocode_Response_Result
 	 */
 	
 	/**
-	 * Types of results. This array indicates
-	 * the type of the returned result. This array
-	 * contains a set of one or more tags (Address
-	 * Component types) identifying the type of
-	 * feature returned in the result. For example,
-	 * a geocode of "Chicago" returns "locality"
-	 * which indicates that "Chicago" is a city,
-	 * and also returns "political" which indicates
-	 * it is a political entity.
+	 * Address types
+	 * 
+	 * @var array
 	 */
 	protected $types = array();
 
@@ -169,7 +163,15 @@ class Geocode_Response_Result
 	 */
 	protected $components = array();
 
-
+	/**
+	 * Construct
+	 * 
+	 * Called when the class is
+	 * initialised
+	 * 
+	 * @access  public
+	 * @param   array   $result  The result from Google
+	 */
 	public function __construct($result)
 	{
 		// Types
@@ -203,16 +205,48 @@ class Geocode_Response_Result
 		);
 	}
 
+	/**
+	 * Formatted Address
+	 * 
+	 * Returns the address formatted
+	 * in a standardised way according
+	 * to Google
+	 * 
+	 * @access  public
+	 * @return  string   Formatted address
+	 */
 	public function formatted_address()
 	{
 		return $this->formatted_address;
 	}
 
+	/**
+	 * Components
+	 * 
+	 * Returns all address components
+	 * 
+	 * @access  public
+	 * @return  array   Components
+	 */
 	public function components()
 	{
 		return $this->components;
 	}
 
+	/**
+	 * Component
+	 * 
+	 * Get an address component
+	 * See the class constants up the
+	 * top for a list of components
+	 * that exist (note, not all are used
+	 * on every result)
+	 * 
+	 * @access  public
+	 * @param   string|constant  Type
+	 * @param   string           long|short  Long name or short name
+	 * @return  string           Component value
+	 */
 	public function component($type, $name = 'long')
 	{
 		foreach ($this->components as $component)
@@ -227,16 +261,44 @@ class Geocode_Response_Result
 		throw new \OutOfBoundsException('Component '.$type.' is not present in result.');
 	}
 
+	/**
+	 * Latitude
+	 * 
+	 * Returns the latitude
+	 * of the result
+	 * 
+	 * @access  public
+	 * @return  decimal  Latitude
+	 */
 	public function latitude()
 	{
 		return $this->latitude;
 	}
 
+	/**
+	 * Longitude
+	 * 
+	 * Returns the longitude
+	 * of the array
+	 * 
+	 * @access  public
+	 * @return  decimal  Longitude
+	 */
 	public function longitude()
 	{
 		return $this->longitude;
 	}
 
+	/**
+	 * Location
+	 * 
+	 * Returns the latitude and
+	 * longitude in and associative
+	 * array
+	 * 
+	 * @access  public
+	 * @return  array
+	 */
 	public function location()
 	{
 		return array(
@@ -245,6 +307,22 @@ class Geocode_Response_Result
 		);
 	}
 
+	/**
+	 * Types
+	 * 
+	 * Types of results. This array indicates
+	 * the type of the returned result. This array
+	 * contains a set of one or more tags (Address
+	 * Component types) identifying the type of
+	 * feature returned in the result. For example,
+	 * a geocode of "Chicago" returns "locality"
+	 * which indicates that "Chicago" is a city,
+	 * and also returns "political" which indicates
+	 * it is a political entity.
+	 * 
+	 * @access  public
+	 * @return  array  Types
+	 */
 	public function types()
 	{
 		return $this->types;
