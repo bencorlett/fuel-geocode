@@ -1,11 +1,16 @@
 <?php
-
 /**
- * Google Geocoder Package for FuelPHP
- * 
- * @see http://code.google.com/apis/maps/documentation/geocoding
+ * Google Geocoder package for FuelPHP
+ *
+ * @package    FuelPHP
+ * @subpackage Geocoder
+ * @version    1.0
+ * @author     Webcomm (http://www.webcomm.com.au)
+ * @license    MIT License
+ * @copyright  2011 Webcomm Pty Limited
+ * @link       http://github.com/bencorlett/fuel-geocoder
+ * @see        http://code.google.com/apis/maps/documentation/geocoding
  */
-
 Autoloader::add_core_namespace('Geocode');
 
 Autoloader::add_classes(array(
