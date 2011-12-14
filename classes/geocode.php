@@ -33,6 +33,8 @@ class Geocode
 	/**
 	 * The parameters used in
 	 * the request
+	 * 
+	 * @var array
 	 */
 	public $params = array();
 
@@ -132,7 +134,16 @@ class Geocode
 		}
 	}
 
-	public function build_url()
+	/**
+	 * Build Url
+	 * 
+	 * Returns the url we need to
+	 * access
+	 * 
+	 * @access  protected
+	 * @return  string   Url
+	 */
+	protected function build_url()
 	{
 		return $this->service_url.'?'.http_build_query($this->params, null, '&');
 	}
