@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Google Geocoder Package for FuelPHP
+ * 
+ * @see http://code.google.com/apis/maps/documentation/geocoding
+ */
+
 Autoloader::add_core_namespace('Geocode');
 
 Autoloader::add_classes(array(

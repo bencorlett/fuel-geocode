@@ -8,15 +8,40 @@ class InvalidResponseException extends \Exception {}
 class Geocode_Response implements \ArrayAccess, \Iterator, \Countable
 {
 	/**
+	 * ============================================
+	 * ======== Constants for Reference ===========
+	 * ============================================
+	 */
+	
+	/**
 	 * Available statuses
 	 * 
 	 * @constant
 	 */
+	
+	// Indicates that no errors occurred; the address was successfully parsed and at least one geocode was returned.
 	const STATUS_OK               = "OK";
+
+	// Indicates that the geocode was successful but returned no results. This may occur if the geocode was passed a non-existent address or a latlng in a remote location.
 	const STATUS_ZERO_RESULTS     = "ZERO_RESULTS";
+
+	// Indicates that you are over your quota.
 	const STATUS_OVER_QUERY_LIMIT = "OVER_QUERY_LIMIT";
+
+	// Indicates that your request was denied, generally because of lack of a sensor parameter.
 	const STATUS_REQUEST_DENIED   = "REQUEST_DENIED";
+
+	// Generally indicates that the query (address or latlng) is missing.
 	const STATUS_INVALID_REQUEST  = "INVALID_REQUEST";
+
+
+
+	/**
+	 * ============================================
+	 * =========== Class Properties ===============
+	 * ============================================
+	 */
+	
 
 	/**
 	 * Invalid statuses
