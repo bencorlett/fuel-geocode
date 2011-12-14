@@ -156,12 +156,7 @@ class Geocode_Response_Result
 	protected $location_type;
 
 	/**
-	 * Viewport contains the recommended viewport
-	 * for displaying the returned result, specified
-	 * as two latitude,longitude values defining the
-	 * southwest and northeast corner of the viewport
-	 * bounding box. Generally the viewport is used
-	 * to frame a result when displaying it to a user.
+	 * The viewport
 	 * 
 	 * @var array
 	 */
@@ -172,7 +167,8 @@ class Geocode_Response_Result
 	 * 
 	 * @var array
 	 */
-	protected $address_components = array();
+	protected $components = array();
+
 
 	public function __construct($result)
 	{
@@ -185,7 +181,7 @@ class Geocode_Response_Result
 		// Address components
 		foreach ($result['address_components'] as $component)
 		{
-			$this->address_components[] = $component;
+			$this->components[] = $component;
 		}
 
 		// Latitude and longitude
@@ -205,5 +201,83 @@ class Geocode_Response_Result
 			'latitude'  => $result['geometry']['viewport']['southwest']['lat'],
 			'longitude' => $result['geometry']['viewport']['southwest']['lng'],
 		);
+	}
+
+	public function formatted_address()
+	{
+		return $this->formatted_address;
+	}
+
+	public function components()
+	{
+		return $this->components;
+	}
+
+	public function component($type, $name = 'long')
+	{
+		foreach ($this->components as $component)
+		{
+			// echo '<pre>',print_r($component['types'], true),'</pre>';
+			if (in_array($type, $component['types']))
+			{
+				return $component[$name.'_name'];
+			}
+		}
+
+		throw new \OutOfBoundsException('Component '.$type.' is not present in result.');
+	}
+
+	public function latitude()
+	{
+		return $this->latitude;
+	}
+
+	public function longitude()
+	{
+		return $this->longitude;
+	}
+
+	public function location()
+	{
+		return array(
+			'latitude'  => $this->latitude,
+			'longitude' => $this->longitude,
+		);
+	}
+
+	public function types()
+	{
+		return $this->types;
+	}
+
+	/**
+	 * Viewport
+	 * 
+	 * Viewport contains the recommended viewport
+	 * for displaying the returned result, specified
+	 * as two latitude,longitude values defining the
+	 * southwest and northeast corner of the viewport
+	 * bounding box. Generally the viewport is used
+	 * to frame a result when displaying it to a user.
+	 * 
+	 * @access  public
+	 * @param   string  north_east|south_wst
+	 * @return  array   Viewport
+	 */
+	public function viewport($corner = false)
+	{
+		$viewport = $this->viewport;
+
+		if ($corner)
+		{
+			if (\Arr::key_exists($viewport, $corner))
+			{
+				return $viewport[$corner];
+			}
+
+			throw new \OutOfBoundsException('Viewport corner '.$corner.' doesn\'t exist.');
+		}
+
+		return $viewport;
 	}
 }
