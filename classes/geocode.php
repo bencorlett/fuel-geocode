@@ -116,7 +116,7 @@ class Geocode
 			$request = \Request::forge($url, array(
 				'driver' => 'curl',
 			));
-			$request->set_option('timeout', 3);
+			$request->set_option('timeout', \Config::get('geocode.request_timeout', 30));
 
 			$body = $request->execute()->response()->body();
 

@@ -14,6 +14,13 @@
 return array(
 
 	/**
+	 * How long shall the curl
+	 * request wait until it
+	 * times out
+	 */
+	'request_timeout' => 30,
+
+	/**
 	 * Default parameters for
 	 * requests
 	 */
