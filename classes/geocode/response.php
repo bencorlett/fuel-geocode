@@ -91,7 +91,7 @@ class Geocode_Response implements \ArrayAccess, \Iterator, \Countable
 		}
 		elseif ($status == self::STATUS_ZERO_RESULTS)
 		{
-			throw new \NoResultsException('Zero results found for the requested geocode.');
+			throw new \NoResultsException('No results were found for the requested geocode.');
 		}
 
 		foreach ($body['results'] as $result)
@@ -101,10 +101,29 @@ class Geocode_Response implements \ArrayAccess, \Iterator, \Countable
 	}
 
 	/**
-	 * ============================================
-	 * ====== Methods used when iterating =========
-	 * ============================================
+	 * First
+	 * 
+	 * Shortcut to getting the first
+	 * result:
+	 * 
+	 * $result = \Geocode::address('1 Infinite Loop, CA USA')
+	 * 					 ->first();
+	 * 
+	 * As opposed to:
+	 * 
+	 * $results = \Geocode::address('1 Inifite Loop, CA USA');
+	 * $result  = $results[0];
+	 * 
+	 * It's more of a preferences thing
+	 * than anythign else
+	 * 
+	 * @access  public
+	 * @return  Geocode\Geocde_Response_Result
 	 */
+	public function first()
+	{
+		return $this->results[0];
+	}
 
 	/**
 	 * ============================================
