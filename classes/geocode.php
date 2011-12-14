@@ -46,6 +46,12 @@ class Geocode
 		));
 	}
 
+	/**
+	 * Execute
+	 * 
+	 * Executes the geocode and returns a response object
+	 * with the results
+	 */
 	public function execute()
 	{
 		// Build the url
@@ -60,7 +66,7 @@ class Geocode
 
 			$body = $request->execute()->response()->body();
 
-			\Debug::dump($body);
+			return new \Geocode_Response($body, 'json');
 		}
 		catch (\RequestException $e)
 		{
