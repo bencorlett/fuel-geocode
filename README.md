@@ -10,7 +10,7 @@ The FuelPHP Geocode package is a FuelPHP package that interacts with the
 
 [Straight from the horse's mouth](http://code.google.com/apis/maps/documentation/geocoding/#Geocoding):
 
-    Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway, Mountain View, CA") into geographic coordinates (like latitude 37.423021 and longitude -122.083739), which you can use to place markers or position the map. The Google Geocoding API provides a direct way to access a geocoder via an HTTP request. Additionally, the service allows you to perform the converse operation (turning coordinates into addresses); this process is known as "reverse geocoding."
+Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway, Mountain View, CA") into geographic coordinates (like latitude 37.423021 and longitude -122.083739), which you can use to place markers or position the map. The Google Geocoding API provides a direct way to access a geocoder via an HTTP request. Additionally, the service allows you to perform the converse operation (turning coordinates into addresses); this process is known as "reverse geocoding."
 
 ##Usage
 
@@ -26,6 +26,9 @@ The FuelPHP Geocode package is a FuelPHP package that interacts with the
 
         /**
          * Below is a list of components
+         * accessible like:
+         * \Geocode_Response_Result::ACT_STREET_ADDRESS
+         * or just learn their values as that way is stupid.
          */
         // Indicates a precise street address.
         const ACT_STREET_ADDRESS              = 'street_address';
