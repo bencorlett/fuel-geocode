@@ -125,6 +125,7 @@ class Geocode_Response_Result
 	 * and also returns "political" which indicates
 	 * it is a political entity.
 	 */
+	protected $types = array();
 
 	/**
 	 * Formatted address
@@ -175,9 +176,13 @@ class Geocode_Response_Result
 
 	public function __construct($result)
 	{
+		// Types
+		$this->types = $result['types'];
+
 		// The formatted address
 		$this->formatted_address = $result['formatted_address'];
 
+		// Address components
 		foreach ($result['address_components'] as $component)
 		{
 			$this->address_components[] = $component;
@@ -200,16 +205,5 @@ class Geocode_Response_Result
 			'latitude'  => $result['geometry']['viewport']['southwest']['lat'],
 			'longitude' => $result['geometry']['viewport']['southwest']['lng'],
 		);
-
-
-
-
-		unset($result['address_components']);
-		unset($result['formatted_address']);
-		unset($result['geometry']);
-
-		echo '<pre>';
-		print_r($result);
-		echo '</pre>';
 	}
 }
